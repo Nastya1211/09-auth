@@ -1,4 +1,5 @@
 import TanStackProvider from "../components/TanStackProvider/TanStackProvider";
+import AuthProvider from "../components/AuthProvider/AuthProvider";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import "./globals.css";
@@ -34,18 +35,18 @@ export const metadata: Metadata = {
 
 interface RootLayoutProps {
   children: React.ReactNode;
-  modal: React.ReactNode;
 }
 
-export default function RootLayout({ children, modal }: RootLayoutProps) {
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <body className={roboto.variable}>
         <TanStackProvider>
-          <Header />
-          {children}
-          {modal}
-          <Footer />
+          <AuthProvider>
+            <Header />
+            {children}
+            <Footer />
+          </AuthProvider>
         </TanStackProvider>
       </body>
     </html>
