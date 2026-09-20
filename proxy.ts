@@ -28,8 +28,9 @@ export async function proxy(request: NextRequest) {
         const cookieArray = Array.isArray(setCookie) ? setCookie : [setCookie];
         for (const cookieStr of cookieArray) {
           const parsed = parseSetCookie(cookieStr);
-          if (parsed.value) {
-            cookieStore.set(parsed.name, parsed.value, parsed);
+          const { name, value, ...options } = parsed;
+          if (value) {
+            cookieStore.set(name, value, options);
           }
         }
 
@@ -57,6 +58,8 @@ export async function proxy(request: NextRequest) {
     if (isPrivateRoute) {
       return NextResponse.redirect(new URL("/sign-in", request.url));
     }
+
+    return NextResponse.next();
   }
 
   if (isPublicRoute) {

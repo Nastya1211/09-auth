@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { login, getMe } from "../../../lib/api/clientApi";
+import { login } from "../../../lib/api/clientApi";
 import { useAuthStore } from "../../../lib/store/authStore";
 import { isAxiosError } from "axios";
 import css from "./SignInPage.module.css";
@@ -18,8 +18,7 @@ export default function SignIn() {
     const password = formData.get("password") as string;
 
     try {
-      await login({ email, password });
-      const user = await getMe();
+      const user = await login({ email, password });
       setUser(user);
       router.push("/profile");
     } catch (err) {

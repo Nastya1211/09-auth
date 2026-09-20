@@ -6,12 +6,12 @@ import type { FetchNotesResponse, FetchNotesParams } from "./clientApi";
 
 export const checkServerSession = async () => {
   const cookieStore = await cookies();
-  const res = await api.get("/auth/session", {
+  const response = await api.get("/auth/session", {
     headers: {
       Cookie: cookieStore.toString(),
     },
   });
-  return res;
+  return response;
 };
 
 export const fetchNotes = async ({
@@ -48,16 +48,6 @@ export const fetchNoteById = async (id: string): Promise<Note> => {
 export const getMe = async (): Promise<User> => {
   const cookieStore = await cookies();
   const response = await api.get<User>("/users/me", {
-    headers: {
-      Cookie: cookieStore.toString(),
-    },
-  });
-  return response.data;
-};
-
-export const checkSession = async (): Promise<User | null> => {
-  const cookieStore = await cookies();
-  const response = await api.get<User | null>("/auth/session", {
     headers: {
       Cookie: cookieStore.toString(),
     },
