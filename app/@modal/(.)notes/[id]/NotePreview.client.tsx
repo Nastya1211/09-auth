@@ -26,6 +26,14 @@ export default function NotePreviewClient() {
 
   return (
     <Modal isOpen={true} onClose={handleClose}>
+      <button
+        type="button"
+        onClick={handleClose}
+        aria-label="Close modal"
+        className={css.closeButton}
+      >
+        ✕
+      </button>
       {isLoading && <p>Loading, please wait...</p>}
       {(isError || (!isLoading && !note)) && <p>Something went wrong.</p>}
       {note && (
